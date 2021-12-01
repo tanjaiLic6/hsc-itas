@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from "react";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Header from "./Components/Header/Header";
+import CreateUser from "./Components/CreateUser/CreateUser";
+import Users from "./Components/Users/Users";
 
-function App() {
+
+
+import './App.css';
+import MainPage from "./Components/MainPage/MainPage";
+
+class App extends React.Component {
+ constructor(props){
+   super(props);
+   this.state={
+     users:[]
+   }
+
+ }
+
+ createUser=(user)=>{
+   this.setState({users:[...this.state.users,user]})
+ }
+ render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   
+    <Fragment>
+      <Header />
+      <Routes>
+        
+      <Route  path="/" element={<Users users={this.state.users} />}/>
+       
+      <Route  path="/create-user" element={<CreateUser createUser={this.createUser} users={this.state.users}  />}/>
+        
+      
+      
+
+      
+      </Routes>
+   
+
+      
+    </Fragment>
   );
 }
-
+ }
 export default App;
