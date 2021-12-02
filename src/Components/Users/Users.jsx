@@ -1,6 +1,8 @@
 import React from "react";
 import Table from 'react-bootstrap/Table';
 import SingleUser from "../SingleUser/SingleUser";
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button'
 
 
 class Users extends React.Component {
@@ -16,6 +18,7 @@ class Users extends React.Component {
         return (
     <Table className='table-hover' responsive>
     <thead>
+      
      <tr>
       <th className='text-center'>First Name</th>
       <th className='text-center'>Last Name</th>

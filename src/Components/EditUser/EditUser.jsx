@@ -80,9 +80,9 @@ class EditUser extends React.Component {
     render(){ 
     
        return (
-        <Modal show={this.props.modalVisible} onHide={this.props.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+        <Modal show={this.props.modalVisible} onHide={this.props.handleClose}  >
+        <Modal.Header closeButton >
+          <Modal.Title >Edit User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form >
