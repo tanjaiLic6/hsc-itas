@@ -1,11 +1,6 @@
 import React from "react";
-import Table from 'react-bootstrap/Table';
-import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import EditUser from "../EditUser/EditUser";
-import Form from 'react-bootstrap/Form'
-
-
 
 class SingleUser extends React.Component{
 
@@ -18,9 +13,6 @@ class SingleUser extends React.Component{
         
     }
 
-    saveChanges=()=>{
-
-    }
 
     handleClose=()=>{
         this.setState({modalVisible:false})
@@ -31,20 +23,19 @@ class SingleUser extends React.Component{
     }
 
     render(){
-        console.log(this.props)
         const user=this.props.user;
         return(
         <tr>
-            <td>{user.firstName}</td>
-            <td>{user.lastName}</td>
-            <td>{user.userName}</td>
-            <td>{user.email}</td>
-            <td>{user.phone}</td>
-            <td>{user.address}</td>
-            <td>{user.sallary}</td>
-            <td>
-                <button onClick={()=>this.handlestartEdit()}>edit</button>
-                <button onClick={()=>this.props.deleteUser(user.userName)}>delete</button>
+            <td className='text-center'>{user.firstName}</td>
+            <td className='text-center'>{user.lastName}</td>
+            <td className='text-center'>{user.userName}</td>
+            <td className='text-center'>{user.email}</td>
+            <td className='text-center'>{user.phone}</td>
+            <td className='text-center'>{user.address}</td>
+            <td className='text-center'>{user.salary}</td>
+            <td className='text-center'>
+                <Button className='btn-secondary mx-4 align-middle' onClick={()=>this.handlestartEdit()}>EDIT </Button>
+                <Button className='btn-secondary align-middle' onClick={()=>this.props.deleteUser(user.userName)}>DELETE</Button>
             </td>
 
             <EditUser modalVisible={this.state.modalVisible} currentUser={user} users={this.props.users} handleClose={this.handleClose} 
@@ -53,12 +44,9 @@ class SingleUser extends React.Component{
             
             />
         
-
-
         </tr>
 
         )
-
         
     }
 }

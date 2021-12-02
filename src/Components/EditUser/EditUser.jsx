@@ -1,12 +1,5 @@
 import React from "react";
 import {Form,Row,Col,Button,Modal} from 'react-bootstrap';
-import { withRouter } from "../RouterWrapper";
-
-
-
-
-
-
 import { areYouSure } from "../../Helpers";
 
 
@@ -22,7 +15,7 @@ class EditUser extends React.Component {
             email:currentUser.email,
             phone:currentUser.phone,
             address:currentUser.address,
-            sallary:currentUser.sallary,
+            salary:currentUser.salary,
             originalUsername:currentUser.userName
         };
         
@@ -39,7 +32,7 @@ class EditUser extends React.Component {
             email:'',
             phone:'',
             address:'',
-            sallary:''
+            salary:''
     
         
     }
@@ -73,7 +66,7 @@ class EditUser extends React.Component {
           email:this.state.email,
           phone:this.state.phone,
           address:this.state.address,
-          sallary:this.state.sallary},
+          salary:this.state.salary},
           this.state.originalUsername
           
           )
@@ -82,10 +75,7 @@ class EditUser extends React.Component {
          this.props.handleClose();
           
           }
-         
-          
-         
-
+     
     }
     render(){ 
     
@@ -133,15 +123,13 @@ class EditUser extends React.Component {
     <Form.Control placeholder="Enter address" value={this.state.address} onChange={(e)=>this.onChangeProperty('address',e.target.value)} required />
    </Form.Group>
 
-   <Form.Group as={Col} md="12"  id="sallary">
-    <Form.Label>Sallary</Form.Label>
-    <Form.Control type="number" placeholder="Enter sallary" value={this.state.sallary} onChange={(e)=>this.onChangeProperty('sallary',e.target.value)}  required/>
+   <Form.Group as={Col} md="12"  id="salary">
+    <Form.Label>Salary</Form.Label>
+    <Form.Control type="number" placeholder="Enter salary" value={this.state.salary} onChange={(e)=>this.onChangeProperty('salary',e.target.value)}  required/>
    </Form.Group>
 
-   
    </Row>
    
-
 </Form>
 
         </Modal.Body>

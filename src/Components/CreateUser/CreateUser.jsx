@@ -1,12 +1,6 @@
 import React from "react";
 import {Form,Row,Col,Button} from 'react-bootstrap';
 import { withRouter } from "../RouterWrapper";
-
-
-
-
-
-
 import { areYouSure } from "../../Helpers";
 
 
@@ -14,13 +8,9 @@ class CreateUser extends React.Component {
     constructor(props,history){
         super(props);
         this.state=this.initalState;
-        
-
     }
 
-
     initalState={
-        
             isUniqeUserName:true,
             firstName:'',
             lastName:'',
@@ -28,9 +18,7 @@ class CreateUser extends React.Component {
             email:'',
             phone:'',
             address:'',
-            sallary:''
-    
-        
+            salary:''   
     }
 
     onChangeProperty=(property,value)=>{
@@ -48,13 +36,11 @@ class CreateUser extends React.Component {
       if(this.isUserNameTaken()){
           this.setState({isUniqeUserName:false})
           return;
-
       }
       
      const isUserSure= await areYouSure();
 
       if(isUserSure){ 
-      
           this.props.createUser({
           firstName:this.state.firstName,
           lastName:this.state.lastName,
@@ -62,15 +48,9 @@ class CreateUser extends React.Component {
           email:this.state.email,
           phone:this.state.phone,
           address:this.state.address,
-          sallary:this.state.sallary})
+          salary:this.state.salary})
          this.props.navigate('/');
-
-          
           }
-         
-          
-         
-
     }
     render(){ 
     
@@ -79,8 +59,8 @@ class CreateUser extends React.Component {
    <Row className="mb-3">
     
    <Form.Group as={Col} md="12" id="first-name">
-      <Form.Label>First Name</Form.Label>
-      <Form.Control type="text" placeholder="Enter first name" value={this.state.firstName} onChange={(e)=>this.onChangeProperty('firstName',e.target.value)} required />
+      <Form.Label className='align-middle'>First Name</Form.Label>
+      <Form.Control type="text" placeholder="Enter first name" className='align-middle' value={this.state.firstName} onChange={(e)=>this.onChangeProperty('firstName',e.target.value)} required />
     </Form.Group>
 
     <Form.Group as={Col} md="12" id="last-name">
@@ -113,9 +93,9 @@ class CreateUser extends React.Component {
     <Form.Control placeholder="Enter address" value={this.state.address} onChange={(e)=>this.onChangeProperty('address',e.target.value)} required />
    </Form.Group>
 
-   <Form.Group as={Col} md="12"  id="sallary">
-    <Form.Label>Sallary</Form.Label>
-    <Form.Control type="number" placeholder="Enter sallary" value={this.state.sallary} onChange={(e)=>this.onChangeProperty('sallary',e.target.value)}  required/>
+   <Form.Group as={Col} md="12"  id="salary">
+    <Form.Label>Salary</Form.Label>
+    <Form.Control type="number" placeholder="Enter salary" value={this.state.salary} onChange={(e)=>this.onChangeProperty('salary',e.target.value)}  required/>
    </Form.Group>
 
    
