@@ -12,9 +12,9 @@ class Users extends React.Component {
     
     render(){
       const users=this.props.users;
-      const sum=this.props.users.map(item => item.salary).reduce((prev, next) => parseFloat(prev) + parseFloat(next));
+      const sum=users.length>0?this.props.users.map(item => item.salary).reduce((prev, next) => parseFloat(prev) + parseFloat(next)):0
         return (
-    <Table className='user-table' responsive>
+    <Table className='table-hover' responsive>
     <thead>
      <tr>
       <th className='text-center'>First Name</th>
