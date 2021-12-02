@@ -1,5 +1,5 @@
 import React from "react";
-import {Form,Row,Col,Button} from 'react-bootstrap';
+import {Form,Row,Col,Button,Modal} from 'react-bootstrap';
 import { withRouter } from "../RouterWrapper";
 
 
@@ -10,10 +10,21 @@ import { withRouter } from "../RouterWrapper";
 import { areYouSure } from "../../Helpers";
 
 
-class CreateUser extends React.Component {
-    constructor(props,history){
+class EditUser extends React.Component {
+    constructor(props){
         super(props);
-        this.state=this.initalState;
+        const currentUser=this.props.currentUser;
+        this.state={
+            isUniqeUserName:true,
+            firstName:currentUser.firstName,
+            lastName:currentUser.lastName,
+            userName:currentUser.userName,
+            email:currentUser.email,
+            phone:currentUser.phone,
+            address:currentUser.address,
+            sallary:currentUser.sallary,
+            originalUsername:currentUser.userName
+        };
         
 
     }
@@ -39,11 +50,10 @@ class CreateUser extends React.Component {
     }
 
     isUserNameTaken=()=>{
-        return this.props.users.some(user=>user.userName===this.state.userName)
+        return this.props.users.some(user=>user.userName===this.state.userName && this.state.originalUsername !== this.state.userName)
     }
     
-     submit= async (e)=>{
-      e.preventDefault();
+     submit= async ()=>{
     
       if(this.isUserNameTaken()){
           this.setState({isUniqeUserName:false})
@@ -55,16 +65,21 @@ class CreateUser extends React.Component {
 
       if(isUserSure){ 
       
-          this.props.createUser({
+          this.props.editUser(
+              {
           firstName:this.state.firstName,
           lastName:this.state.lastName,
           userName:this.state.userName,
           email:this.state.email,
           phone:this.state.phone,
           address:this.state.address,
-          sallary:this.state.sallary})
-         this.props.navigate('/');
-
+          sallary:this.state.sallary},
+          this.state.originalUsername
+          
+          )
+       
+       
+         this.props.handleClose();
           
           }
          
@@ -75,7 +90,12 @@ class CreateUser extends React.Component {
     render(){ 
     
        return (
-  <Form onSubmit={this.submit} className='w-50 mx-auto' >
+        <Modal show={this.props.modalVisible} onHide={this.props.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form >
    <Row className="mb-3">
     
    <Form.Group as={Col} md="12" id="first-name">
@@ -121,17 +141,23 @@ class CreateUser extends React.Component {
    
    </Row>
    
-  
 
-   
-
-  <Button variant="primary" type="submit" id='createUser-btn' >
-    Submit
-  </Button>
 </Form>
 
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.props.handleClose}>
+            Close
+          </Button>
+          <Button variant="primary"  onClick={this.submit} >
+            Save Changes
+          </Button>
+        </Modal.Footer>
+        
+      </Modal>
+  
       );
       
      }
     }
-    export default withRouter(CreateUser);
+    export default EditUser;

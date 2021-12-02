@@ -7,29 +7,68 @@ import Users from "./Components/Users/Users";
 
 
 
+
+
 import './App.css';
-import MainPage from "./Components/MainPage/MainPage";
+
 
 class App extends React.Component {
  constructor(props){
    super(props);
    this.state={
-     users:[]
-   }
+     users:this.getStoredUsers()
+    
+   
 
  }
+}
+  
 
+ 
+getStoredUsers=()=>{
+  const retrievedArray = JSON.parse(localStorage.getItem('usersArray'));
+  
+  if(!!retrievedArray && Array.isArray(retrievedArray)){
+   return  retrievedArray;
+  }
+ return [];
+}
+
+storeUser=()=>{
+ localStorage.setItem('usersArray',JSON.stringify(this.state.users));
+  
+}
  createUser=(user)=>{
-   this.setState({users:[...this.state.users,user]})
+   this.setState({users:[...this.state.users,user]},()=>{this.storeUser()});
+   
+ }
+
+
+
+ deleteUser=(userName)=>{
+ const newUsers= this.state.users.filter((user)=>user.userName !== userName);
+ this.setState({users:newUsers},()=>this.storeUser());
+ }
+
+ editUser=(user,oldUserName)=>{
+    const copyOfUsers=[...this.state.users];
+    let  indexOfUser=  copyOfUsers.findIndex((u)=>u.userName===user.userName)
+    if(indexOfUser===-1){
+      indexOfUser= copyOfUsers.findIndex((u)=>u.userName===oldUserName)
+    }
+    copyOfUsers[indexOfUser]=user;
+    this.setState({users:copyOfUsers},()=>this.storeUser());
+    
  }
  render(){
+ 
   return (
-   
-    <Fragment>
+  
+    <div className='app-wrap'>
       <Header />
       <Routes>
         
-      <Route  path="/" element={<Users users={this.state.users} />}/>
+      <Route  path="/" element={<Users users={this.state.users} deleteUser={this.deleteUser} editUser={this.editUser} />}/>
        
       <Route  path="/create-user" element={<CreateUser createUser={this.createUser} users={this.state.users}  />}/>
         
@@ -41,7 +80,7 @@ class App extends React.Component {
    
 
       
-    </Fragment>
+    </div>
   );
 }
  }
